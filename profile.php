@@ -68,14 +68,10 @@ include_once("sidebar.php");
 		for($i=0; $row = $result->fetch(); $i++){
 		
 		$name=$row['customer_name'];
-		$vehicle_no=$row['vehicle_no'];
-			$color=$row['color'];
-			$model=$row['model'];
-			$bye_date=$row['bye_date'];
-			$chassis_no=$row['chassis_no'];
-			$engine_no=$row['engine_no'];
+			$join=$row['join_date'];
 			$birthday=$row['birthday'];
 			$gend=$row['gend'];	
+      $ex=$row['v_date'];	
 		
 		}
 	  
@@ -119,9 +115,11 @@ include_once("sidebar.php");
                   <b>Birthday:</b>  <i><?php echo $birthday;?></i>
                 </li>
 				<li class="list-group-item">
-                  <b>Email:</b>  <i><?php echo $row['email'];?></i>
+                  <b>Join Date:</b>  <i><?php echo $row['join_date'];?></i>
                 </li>
-                
+        <li class="list-group-item">
+                  <b>Expire Date:</b>  <i><?php echo $row['v_date'];?></i>
+                </li>
                 <li class="list-group-item">
                   <b>Finger:</b>  <i>
                       <?php   
@@ -136,9 +134,6 @@ include_once("sidebar.php");
 					  <button class="btn btn-danger">ADD Finger</button></a> 
 					  <?php } ?></i>
                 </li>
-					
-					
-					
 				<?php } ?>
 				
 				</ul>
@@ -164,7 +159,7 @@ include_once("sidebar.php");
 			   
 			   <?php
 	
-       $result1 = $db->prepare("SELECT * FROM sales WHERE vehicle_no='$vehicle_no' and action='active' ORDER by transaction_id DESC ");
+       $result1 = $db->prepare("SELECT * FROM payment WHERE cus_id='$g' ORDER by transaction_id DESC ");
 		$result1->bindParam(':userid', $res);
 		$result1->execute();
 		for($i=0; $row = $result1->fetch(); $i++){
@@ -181,38 +176,14 @@ include_once("sidebar.php");
                     </i>
                     <div class="timeline-item">
                       <span class="time"><i class="fa fa-clock-o"></i> <?php echo $row['date'];?></span>
-                      <h3 class="timeline-header"><a href="#">Invoice no:</a> <?php echo $row['invoice_number'];?></h3>
+                      <h3 class="timeline-header"><a href="#">Invoice no:</a> <?php echo $row['transaction_id'];?></h3>
                       <div class="timeline-body">
-						<a class="btn btn-warning btn-xs"><?php echo $row['comment']; ?></a>  
-					  <a class="btn btn-success btn-xs"><?php echo $row['km']; ?> Km</a><br>
-                      <table id="example2" class="table table-bordered table-hover ">
-			<tr>
-                <th>Product Name</th>
-				<th>QTY</th>
-				<th>Dic (Rs.)</th>
-                <th>Price (Rs.)</th>
-              </tr>
-				 <?php $invo=$row['invoice_number'];
-			$job_id=$row['job_no'];
-			$total=0;
-                $result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no = '$invo' ");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row1 = $result->fetch(); $i++){
-	?>
-				 <tr>
-				     <td><?php echo $row1['name']; ?></td>
-					 <td><?php echo $row1['qty']; ?></td>
-					 <td><?php echo $row1['dic']; ?></td>
-					 <td><?php echo $row1['price']; ?></td>
-				 </tr>
-				 <?php
-			
-		}	?>
-			 </table>
+						<a class="btn btn-warning btn-xs"><?php echo $row['date']; ?></a>  to
+					  <a class="btn btn-success btn-xs"><?php echo $row['pay_month']; ?></a><br>
+
 					  </div>
                       <div class="timeline-footer">
-						  <a class="btn btn-success btn-xs">Rs.<?php echo $row['amount']; ?></a>
+						  <a class="btn btn-info btn-xs"><?php echo $row['type']; ?> Rs.<?php echo $row['amount']; ?></a>
                       </div>
                     </div>
                   </li>
@@ -251,6 +222,24 @@ include_once("sidebar.php");
                       <input type="text" class="form-control" name="address" value="<?php echo $address; ?>" id="inputName" placeholder="Address">
                     </div>
                   </div>
+
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Join Date</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="join" value="<?php echo $join; ?>" id="inputName" placeholder="Join Date">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Expire Date</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="v_date" value="<?php echo $ex; ?>" id="inputName" placeholder="Expire Date">
+                    </div>
+                  </div>
+
+
 		
 		<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
                <div class="form-group">

@@ -79,34 +79,70 @@ include_once("sidebar.php");
 <div class="form-group">
               
 		
-		
+
+<div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>	First Name</label>
+				        <div class="input-group">
+				          <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <input type="text" class="form-control" name="first_name" required >
+                </div>
+              </div>
+				   </div>
+			  
+			   <div class="form-group">
+          <label>Last	Name</label>
+				  <div class="input-group">
+				     <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+             </div>
+             <input type="text" class="form-control" name="last_name" required >
+                  </div>
+                  </div>	  
+              </div>
+         </div>
+
 	
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>	Customer Name</label>
-				  <div class="input-group">
+              <label>Membership</label>
+                 <div class="input-group">
 				   <div class="input-group-addon">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-child"></i>
                   </div>
-                <input type="text" class="form-control" name="cus_name" required >
-                  </div>
-                  </div>
-				</div>
+                <select name="membership" class="form-control pull-right"  >
+                    			   <?php 		 $result = $db->prepare("SELECT * FROM cat");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+			
+	?>
+		<option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?></option>
+	<?php
+				}
+			?>
+		</select>
+                </div>
+              </div>
+				   </div>
 			  
 			   <div class="form-group">
-                <label>	Phone Number</label>
+          <label>	Phone Number</label>
 				  <div class="input-group">
-				   <div class="input-group-addon">
+				     <div class="input-group-addon">
                     <i class="fa fa-phone"></i>
-                  </div>
+             </div>
                 <input type="text" class="form-control" name="phone_no" data-inputmask='"mask": "(999)-9999999"' data-mask>
                   </div>
-                  </div>
-			  
+                  </div>	  
               </div>
-              </div>
+         </div>
 	
 	
 	<div class="box-body">
@@ -139,30 +175,6 @@ include_once("sidebar.php");
 	
       <div class="box-body">
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Membership</label>
-                 <div class="input-group">
-				   <div class="input-group-addon">
-                    <i class="fa fa-child"></i>
-                  </div>
-                <select name="membership" class="form-control pull-right"  >
-                    			   <?php 		 $result = $db->prepare("SELECT * FROM cat");
-		$result->bindParam(':userid', $res);
-		$result->execute();
-		for($i=0; $row = $result->fetch(); $i++){
-			
-	?>
-		<option value="<?php echo $row['id'];?>"><?php echo $row['name']; ?></option>
-	<?php
-				}
-			?>
-		</select>
-                  </div>  
-                  </div>
-				</div>
-			  
-			  
 			  <div class="form-group">
                 <label>	Address</label>
 				  <div class="input-group">
