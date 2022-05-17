@@ -1,10 +1,6 @@
 <?php 
 include '../connect.php';
 
-
-
-
-
 date_default_timezone_set("Asia/Colombo");
 $key = $_GET['key'];
 $fingerid = $_GET['fingerid'];
@@ -50,6 +46,7 @@ $diff = $FS->diff ($send);
 $df = $diff->format('%r%a');
 
 if($df < 0){ $action="REJECTED"; }
+if($vdate == ""){ $action="REJECTED"; }
 
 
 $sql = "INSERT INTO attends (fingerid,d_time,time,date,user_id,user_name,d_date,membership) VALUES (?,?,?,?,?,?,?,?)";
