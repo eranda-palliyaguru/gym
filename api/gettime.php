@@ -13,7 +13,7 @@ $con = $_GET['con'];
 $data=$_GET['data'];
 $version=$_GET['version'];
 
-if($version=="1.0.3"){
+if($version=="1.0.4"){
 	$update="no";
 }
 
