@@ -1,6 +1,7 @@
 <?php
 include("../connect.php");
 $no=1;
+$update="now";
 
 $u_id=0;
 
@@ -10,6 +11,11 @@ $key = $_GET['key'];
 $did = $_GET['did'];
 $con = $_GET['con'];
 $data=$_GET['data'];
+$version=$_GET['version'];
+
+if($version=="1.0.3"){
+	$update="no";
+}
 
 if($data == "COMPLETED"){
     
@@ -47,7 +53,7 @@ $d=date("d");
 $h=date("H");
 $i=date("i");
 $s=date("s");
-$response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s);
+$response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s, "update"=>$update);
 	$json_response = json_encode($response);
 	echo $json_response;
 }
