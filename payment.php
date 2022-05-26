@@ -57,7 +57,7 @@ include_once("sidebar.php");
         <li class="active">Advanced Elements</li>
       </ol>
     </section>
-   <?php if(!$_GET['id']){ ?>
+   <?php if($_GET['id']==""){ ?>
    
    <br><br><br><br>	
     <section class="content"> <div class="col-lg-3 "></div> <div class="col-lg-6 ">
@@ -74,7 +74,7 @@ include_once("sidebar.php");
 <div class="row">
    
     <div class="col-lg-6 ">
-  <select class="form-control select3" name="id" style="width: 255px;" required >
+  <select class="form-control select2" name="id" style="width: 255px;" id="select2" required >
 			   <?php 		 $result = $db->prepare("SELECT * FROM customer");
 		$result->bindParam(':userid', $res);
 		$result->execute();
@@ -208,26 +208,42 @@ include_once("sidebar.php");
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery 2.2.3 -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="../../bootstrap/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
+<!-- Select2 -->
+<script src="../../plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll 1.3.0 -->
 <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../../plugins/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
 <script src="../../plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- page script -->
 <script>
   $(function () {
+
+    $(".select2").select2();
+
+
     $("#example1").DataTable();
     $('#example2').DataTable({
       "paging": true,
@@ -238,16 +254,7 @@ include_once("sidebar.php");
       "autoWidth": false
     });
   });
-	
-	
-	$('#datepicker').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepicker').datepicker({ autoclose: true });
-	
-	
-	
-	$('#datepickerd').datepicker({  autoclose: true, datepicker: true,  format: 'yyyy-mm-dd '});
-    $('#datepickerd').datepicker({ autoclose: true  });
-	
+		
 </script>
 </body>
 </html>
