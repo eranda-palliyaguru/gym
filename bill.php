@@ -1,420 +1,196 @@
-<?php header("content-type: text/html; charset=UTF-8");  ?>
-
 <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<html>
+		<title>CLOUD ARM | Invoice</title>
 
-<head>
+		<!-- Favicon -->
+		<link rel="icon" href="./images/favicon.png" type="image/x-icon" />
 
-<?php require_once ('auth.php');?>
+		<!-- Invoice styling -->
+		<style>
+			body {
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				text-align: center;
+				color: #777;
+			}
 
-<title>
+			body h1 {
+				font-weight: 300;
+				margin-bottom: 0px;
+				padding-bottom: 0px;
+				color: #000;
+			}
 
-POS
+			body h3 {
+				font-weight: 300;
+				margin-top: 10px;
+				margin-bottom: 20px;
+				font-style: italic;
+				color: #555;
+			}
 
-</title><meta charset="UTF-8">
+			body a {
+				color: #06f;
+			}
 
- <link href="css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/DT_bootstrap.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-    <style type="text/css">
-      .sidebar-nav {
-        padding: 9px 0;
-      }
+			
 
-    </style>
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+				border-collapse: collapse;
+			}
 
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
 
-<link href="../style.css" media="screen" rel="stylesheet" type="text/css" />
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
 
-<link href="src/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
 
-<script src="lib/jquery.js" type="text/javascript"></script>
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
 
-<script src="src/facebox.js" type="text/javascript"></script>
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
 
-<script language="javascript">
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
 
-function Clickheretoprint()
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
 
-{ 
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
 
-  var disp_setting="toolbar=yes,location=no,directories=yes,menubar=yes,"; 
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
 
-      disp_setting+="scrollbars=yes,width=800, height=400, left=100, top=25"; 
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
 
-  var content_vlue = document.getElementById("content").innerHTML; 
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
 
-  
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+		</style>
+	</head>
 
-  var docprint=window.open("","",disp_setting); 
-
-   docprint.document.open(); 
-
-   docprint.document.write('</head><body onLoad="self.print()" style="width: 800px; font-size: 13px; font-family: arial;">');          
-
-   docprint.document.write(content_vlue); 
-
-   docprint.document.close(); 
-
-   docprint.focus(); 
-
-}
-
-</script>
-
-<?php
-
-$invoice=$_GET['id'];
-include('connect.php');
-$result = $db->prepare("SELECT * FROM sales WHERE invoice_number= :userid");
-$result->bindParam(':userid', $invoice);
+<?php 
+include("connect.php");
+$id=$_GET['id'];
+$result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$id' ");
+$result->bindParam(':userid', $res);
 $result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-$trid=$row['transaction_id'];
-$invoice=$row['invoice_number'];
-$cash=$row['pay_amount'];
-$date=$row['date'];
-$customer_id=$row['customer_id'];
-$sales_man=$row['sales_man'];
-$vehicle=$row['vehicle_no'];
-$cus=$row['customer_name'];
-}
+for($i=0; $row = $result->fetch(); $i++){	
+	$invoice_no=$id;
+	$date=$row['date'];
+	$amount=$row['amount'];
+	$due_date=$row['pay_month'];
+	$type=$row['type'];
 
-$result = $db->prepare("SELECT sum(balance) FROM sales WHERE customer_id='$customer_id' and balance < '0' and pay_type='credit'");
-$result->bindParam(':userid', $invoice);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-$credit=$row['sum(balance)'];
-}
-$result = $db->prepare("SELECT * FROM sales_man WHERE id='$sales_man' ");
-$result->bindParam(':userid', $invoice);
-$result->execute();
-for($i=0; $row = $result->fetch(); $i++){
-$sales_man=$row['name'];
-}
+	}
 ?>
-
-
-
-
-
-
-
-
- <script language="javascript" type="text/javascript">
-
-/* Visit http://www.yaldex.com/ for full source code
-
-and get more free JavaScript, CSS and DHTML scripts! */
-
-
-
-</SCRIPT>
-
-<body onLoad="self.print()" style="width: 800px; font-size: 15px; font-family: arial;" >
-
-
-
-
-
-<?php
-
-
-
-$sec = "1";
-
-?><meta http-equiv="refresh" content="<?php echo $sec?>;URL='sales.php?id=<?php date_default_timezone_set("Asia/Colombo"); 
-
-	                                                        echo $_SESSION['SESS_MEMBER_ID'].date("ymdHis")  ?>'">	
-
-	
-
-  
-
+	<body>
 		
+		<div class="invoice-box">
+			<table>
+				<tr class="top">
+					<td colspan="2">
+						<table>
+							<tr>
+								<td class="title">
+									<img src="./pic/gym_logo.jpeg" alt="Company logo" style="width: 100%; max-width: 150px" />
+								</td>
 
-	
-
-	
-
-<div class="content" id="content">
-
-
-
-	
-
-	
-
-	
-
-	
-
-
-	<H3>
-	
-
-    	
-
-<table border="0">
-
-  <tr>
-
-    
-
-    <td>Cashier-<?php echo $_SESSION['SESS_FIRST_NAME'];?></td>
-
-	
-
-    <td>Time-<?php date_default_timezone_set("Asia/Colombo"); 
-
-	   echo date("h:i:sa")  ?></td>
-</tr>
-	<tr>
-
-    
-
-    <td><div style="font:bold;">Invoice no.<?php echo $trid; ?></td>
-	<td>    Date-<?php echo $date ?></td>
-	
-</tr>
-	<tr>
-	<td>    Sales by -<?php echo $sales_man ?></td>
-	<td>    Vehicle no -<?php echo $vehicle ?></td>
-	</tr>
-	<tr>
-	<td>    Customer -<?php echo $cus ?></td>
-	<td> </td>
-	</tr>
-	</table>
-	</hr>
-
-	<div>
-
-	</div>
-
-
-
-	
-</H3>
-	<div style="width: 100%; margin-top:-10px;">
-
-	<table border="0" cellpadding="4" cellspacing="0" style="text-align:left;" width="40%">
-
-		<thead>
-
-			<tr>
-
-				
-
-				<th width="100" style="font-size: 20px;" >Decs & qty</th>
-
-				<th width="10" style="font-size: 20px;" >price</th>
-
-				
-
-				<th width="50" style="font-size: 20px;" >Total</th/>
-
-			</tr>
-
-		<thead>
-
-		<tbody>
-
-				<?php
-$qty=0;
-					$id=$_GET['id'];
-
-					$result = $db->prepare("SELECT * FROM sales_list WHERE invoice_no= :userid");
-
-					$result->bindParam(':userid', $id);
-
-				    $result->execute();
-
-					for($i=0; $row = $result->fetch(); $i++){
-
-				?>				
-
-	
-
-			    <tr class="record" >
-
-				<td class="record" ><b><h4><?php echo $row['code']; ?>_<?php echo $row['name']; ?> x <?php echo $row['qty']; ?></h4></b></td>
-
-				<td>
-
-				<?php
-
-				$bb=$row['code'];
-
-				$cc=$row['qty'];
-				$qty+=$row['qty'];
-
-				$ppp=$row['price'];
-
-				echo $ppp;
-
-				?>
-
-				</td>
-				</td>
-				<td>
-
-				<?php
-
-				$dfdf=$row['amount'];
-
-				echo $dfdf;
-
-				?>
-
-				</td>
-
+								<td>
+									Invoice #: <?php echo $invoice_no; ?><br />
+									Created: <?php echo $date; ?><br />
+									Due: <?php echo $due_date; ?>
+								</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 
-				<?php
-					}
-				?>
+				<tr class="information">
+					<td colspan="2">
+						<table>
+							<tr>
+								
 
-				<tr>
-
-					<td colspan="2" style=" text-align:right;"><strong style="font-size: 20px;">Total</strong></td>
-
-                    
-
-					<td colspan="2"><strong style="font:bold 20px 'Aleo';">
-
-					<?php
-
-					$sdsd=$id;
-
-					$resultas = $db->prepare("SELECT sum(amount) FROM sales_list WHERE invoice_no= :a");
-					$resultas->bindParam(':a', $sdsd);
-					$resultas->execute();
-					for($i=0; $rowas = $resultas->fetch(); $i++){
-					$fgfg=$rowas['sum(amount)'];
-					
-						echo  number_format($fgfg,2);
-					}
-
-					?>
-
-					</strong></td>
-
+								<td>
+									The Fitness GYM<br />
+									Mirigama,<br />
+									Thefitnessgym45@gmail.com
+								</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 
-				
+				<tr class="heading">
+					<td>Payment Method</td>
 
-				
-
-				<tr>
-
-					<td colspan="2"style=" text-align:right;"><strong style="font-size: 20px; color: #222222;">Pay amount</strong></td>
-
-					<td colspan="2"><strong style="font:bold 18px 'Aleo';">
-
-					<?php echo number_format($cash,2);	?>
-					</strong></td>
-
+					<td>CASH</td>
 				</tr>
 
-				
+				<tr class="details">
+					<td>CASH</td>
 
-				<tr>
-	<td colspan="2" style=" text-align:right;"><strong style="font-size: 20px; color: #222222;">
-					<?php
-					echo 'Balance:';
-					?>&nbsp;
-
-					</strong></td>
-
-					<td colspan="2"><strong style="font:bold 18px 'Aleo';">
-
-					<?php
-			
-					$amount1=$cash-$fgfg;
-					echo number_format($amount1,2);
-					?>
-					</strong></td>
+					<td>Rs.<?php echo $amount; ?></td>
 				</tr>
 
-				
-		<tr>
-	<td colspan="2" style=" text-align:right;"><strong style="font-size: 20px; color: #222222;">
-					<?php
-					echo 'Credit Balance:';
-					?>&nbsp;
+				<tr class="heading">
+					<td>Item</td>
 
-					</strong></td>
-
-					<td colspan="2"><strong style="font:bold 18px 'Aleo';">
-
-					<?php
-			
-					
-					echo number_format($credit,2);
-					?>
-					</strong></td>
+					<td>Price</td>
 				</tr>
-						
-
-			<tr>
-
-	<td colspan="2"style=" text-align:left;"><strong style="font-size: 20px; ">QTY Total
-
-					
-
-					<?php
-
-					echo $qty;
-
-					?>
-
-					</strong></td>
-
-				</tr>		
-
-					
-
-				
-
-			</center>
-
-		</tbody>
-
-	</table>
-
-         <br>
 
 
-	</div>
+				<tr class="item">
+					<td><?php echo $type; ?> (1 months)</td>
 
-	<div style="width: 370px; float:10 left:10;">
+					<td>Rs. <?php echo $amount; ?></td>
+				</tr>
 
-	<div class="content" id="content">
+				<tr class="total">
+					<td></td>
 
-<div style="margin: 0 auto; padding: 20px; width: 900px; font-weight: normal;">
-
-	<div style="width: 10%; height: 100px;" >  
-
-	
-
-	
-
-	</div>
-
-	</div>
-
-	</div>
-
-
-
-</div>
-
-</div>
-
-
-
-
-
+					<td>Total: Rs. <?php echo $amount; ?></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
