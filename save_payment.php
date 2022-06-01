@@ -47,6 +47,13 @@ $sql = "UPDATE  customer
 $ql = $db->prepare($sql);
 $ql->execute(array($pay_month,$id));
 
-header("location: payment.php?id=$id");	
+$result = $db->prepare("SELECT * FROM payment WHERE cus_id='$id' ORDER BY transaction_id DESC LIMIT 1");
+$result->bindParam(':userid', $res);
+$result->execute();
+for($i=0; $row = $result->fetch(); $i++){
+	$invo=$row['transaction_id'];
+}
+
+header("location: bill.php?id=$invo");	
 
 ?>

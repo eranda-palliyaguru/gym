@@ -106,8 +106,12 @@
 			}
 		</style>
 	</head>
+	<script>
+			window.print();
+</script>
 
 <?php 
+
 include("connect.php");
 $id=$_GET['id'];
 $result = $db->prepare("SELECT * FROM payment WHERE transaction_id='$id' ");
@@ -115,6 +119,7 @@ $result->bindParam(':userid', $res);
 $result->execute();
 for($i=0; $row = $result->fetch(); $i++){	
 	$invoice_no=$id;
+	$name=$row['cus_name'];
 	$date=$row['date'];
 	$amount=$row['amount'];
 	$due_date=$row['pay_month'];
@@ -123,8 +128,8 @@ for($i=0; $row = $result->fetch(); $i++){
 	}
 ?>
 	<body>
-		
-		<div class="invoice-box">
+	<meta http-equiv="refresh" content="1; URL='sales_rp.php?d1=<?php echo date('Y-m-d'); ?>&d2=<?php echo date('Y-m-d'); ?>'">
+		<div class="invoice-box" name="nana">
 			<table>
 				<tr class="top">
 					<td colspan="2">
@@ -137,7 +142,8 @@ for($i=0; $row = $result->fetch(); $i++){
 								<td>
 									Invoice #: <?php echo $invoice_no; ?><br />
 									Created: <?php echo $date; ?><br />
-									Due: <?php echo $due_date; ?>
+									Due: <?php echo $due_date; ?><br />
+									Member: <?php echo $name; ?><br />
 								</td>
 							</tr>
 						</table>
@@ -193,4 +199,6 @@ for($i=0; $row = $result->fetch(); $i++){
 			</table>
 		</div>
 	</body>
+
+	
 </html>
