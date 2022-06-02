@@ -175,17 +175,27 @@ if($r =='Cashier'){}else{
 
                         <div class="inner">
 
-                            <h3>Rs.<?php echo $dr_amount; ?></h3>
+                            <h3><?php 
+                            $result = $db->prepare("SELECT * FROM device WHERE id='2' ");
+                            $result->bindParam(':userid', $res);
+                            $result->execute();
+                            for($i=0; $row = $result->fetch(); $i++){
+                                $device_time=$row['time'];
+                                $time=date('His');
+                                $diff=$time-$device_time;
+                                if($diff > 20){ echo "Offline";}else{ echo "Online";}
+                            }
+                            ?></h3>
 
 
 
-                            <p>Shop Sales</p>
+                            <p>Fingerprint Device</p>
 
                         </div>
 
                         <div class="icon">
 
-                            <i class="ion ion-person-add"></i>
+                            <i class="ion ion-tablet"></i>
 
                         </div>
 
@@ -305,26 +315,9 @@ if($r =='Cashier'){}else{
 
 
                                     <?php } ?>
-
-
-
-
                                 </ul>
                             </div>
-
-
-
-
-
-
-
-
-
-
                 </section>
-
-
-
             </div>
 
 
@@ -682,4 +675,5 @@ if($r =='Cashier'){}else{
     </script>
 
 </body>
+
 </html>
