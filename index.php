@@ -176,7 +176,7 @@ if($r =='Cashier'){}else{
                         <div class="inner">
 
                             <h3><?php 
-                            $result = $db->prepare("SELECT * FROM device WHERE id='2' ");
+                            $result = $db->prepare("SELECT * FROM device  LIMIT 1");
                             $result->bindParam(':userid', $res);
                             $result->execute();
                             for($i=0; $row = $result->fetch(); $i++){
