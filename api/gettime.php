@@ -5,7 +5,7 @@ $update="now";
 
 $u_id=0;
 
- date_default_timezone_set("Asia/Colombo");
+date_default_timezone_set("Asia/Colombo");
 header("Content-Type:application/json");
 $key = $_GET['key'];
 $did = $_GET['did'];
