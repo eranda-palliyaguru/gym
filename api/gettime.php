@@ -5,7 +5,7 @@ $update="now";
 
 $u_id=0;
 
-date_default_timezone_set("Asia/Colombo");
+ date_default_timezone_set("Asia/Colombo");
 header("Content-Type:application/json");
 $key = $_GET['key'];
 $did = $_GET['did'];
@@ -18,8 +18,7 @@ if($version=="1.0.4"){
 	$update="no";
 }
 
-if($data == "COMPLETED"){
-    
+if($data == "COMPLETED"){   
     $sql = "UPDATE finger 
         SET action=?";
 $q = $db->prepare($sql);
@@ -35,8 +34,9 @@ $s=date("s");
 
 
 $finger_id=0;
+$device_s_id =0;
 $time=date("His");
-$result = $db->prepare("SELECT * FROM device WHERE device_id='$did' ");
+$result = $db->prepare("SELECT id FROM device WHERE device_id='$did' ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
@@ -53,7 +53,7 @@ $result = $db->prepare("SELECT * FROM device WHERE device_id='$did' ");
 		$q->execute(array($did,$time));
 		}
 
-		$result = $db->prepare("SELECT * FROM finger WHERE action='25' and device_id='$did' LIMIT 1 ");
+		$result = $db->prepare("SELECT id,user_id,user_name FROM finger WHERE action='25' and device_id='$did' LIMIT 1 ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
