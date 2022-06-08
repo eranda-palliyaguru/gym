@@ -11,6 +11,7 @@ $key = $_GET['key'];
 $did = $_GET['did'];
 $con = $_GET['con'];
 $data=$_GET['data'];
+$memory=$_GET['memory'];
 $version=$_GET['version'];
 
 if($version=="1.0.4"){
@@ -43,11 +44,9 @@ $result = $db->prepare("SELECT * FROM device WHERE device_id='$did' ");
 		}
 
 		if($device_s_id > 0){
-		$sql = "UPDATE device 
-        SET time=?
-		WHERE id=?";
+		$sql = "UPDATE device SET time=? , memory=? WHERE id=?";
         $q = $db->prepare($sql);
-        $q->execute(array($time,$device_s_id));
+        $q->execute(array($time,$memory,$device_s_id));
 		}else{ 
 		$sql = "INSERT INTO device (device_id,time) VALUES (?,?)";
 		$q = $db->prepare($sql);
