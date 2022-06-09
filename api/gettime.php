@@ -62,6 +62,10 @@ $result = $db->prepare("SELECT id FROM device WHERE device_id='$did' ");
 		    $user_name=$row['user_name'];
 		}
 
+
+		
+
+
 if($finger_id > 0){
 $response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s,"action"=>"register","user_id"=>$user_id,"user_name"=>$user_name,"finger_id"=>$finger_id,);
 	$json_response = json_encode($response);
@@ -73,7 +77,8 @@ $d=date("d");
 $h=date("H");
 $i=date("i");
 $s=date("s");
-$response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s, "update"=>$update);
+if($memory > 0){$action="delete";}else{$action="";}
+$response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s, "update"=>$update,"action"=>"$action");
 	$json_response = json_encode($response);
 	echo $json_response;
 }
