@@ -124,7 +124,7 @@ include_once("sidebar.php");
                                 <li class="list-group-item">
                                     <b>Finger:</b> <i>
                                         <?php   
-                $result1 = $db->prepare("SELECT * FROM finger WHERE user_id='$g' ");
+                $result1 = $db->prepare("SELECT * FROM finger WHERE user_id='$g' AND action='1' ");
 				$result1->bindParam(':userid', $date);
                 $result1->execute();
                 for($i=0; $row1 = $result1->fetch(); $i++){  $finger=$row1['id'];?><a

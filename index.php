@@ -181,9 +181,9 @@ if($r =='Cashier'){}else{
                             $result->execute();
                             for($i=0; $row = $result->fetch(); $i++){
                                 $device_time=$row['time'];
-                                $time=date('His');
+                                $time=date('ymHis');
                                 $diff=$time-$device_time;
-                                if($diff > 20){ echo "Offline";}else{ echo "Online";}
+                                if($diff > 20){ echo "<a>Offline</a>";}else{ echo "Online";}
                             }
                             ?></h3>
 
