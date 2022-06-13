@@ -179,6 +179,14 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="finger.php">
+                        <i class="fa fa-500px"></i> <span>Fingerprint</span>
+                        <span class="pull-right-container">
+
+                        </span>
+                    </a>
+                </li>
 
 
 
