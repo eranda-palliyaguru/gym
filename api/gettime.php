@@ -63,9 +63,9 @@ $result = $db->prepare("SELECT id,comment FROM device WHERE device_id='$did' ");
 		}
 
 		if($device_s_id > 0){
-		$sql = "UPDATE device SET time=? , memory=? , comment=? WHERE id=?";
+		$sql = "UPDATE device SET time=? , memory=? , comment=? , version=? WHERE id=?";
         $q = $db->prepare($sql);
-        $q->execute(array($time,$memory,$data,$device_s_id));
+        $q->execute(array($time,$memory,$data,$version,$device_s_id));
 		}else{ 
 		$sql = "INSERT INTO device (device_id,time) VALUES (?,?)";
 		$q = $db->prepare($sql);
