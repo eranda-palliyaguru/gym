@@ -241,9 +241,10 @@ if($r =='Cashier'){}else{
                             <i class="fa fa-tablet"></i>
                             <h3 class="box-title">Fingerprint Device </h3>
                             <div class="pull-right box-tools">
-                            <?php if($diff > 20){?><small   class="label bg-red">Offline</small>
-                                 <?php }else{ ?><small   class="label bg-green">Online</small> <?php } ?>    
-                    <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                <?php if($diff > 20){?><small class="label bg-red">Offline</small>
+                                <?php }else{ ?><small class="label bg-green">Online</small> <?php } ?>
+                                <button type="button" class="btn btn-info btn-sm" data-widget="remove"
+                                    data-toggle="tooltip" title="Remove">
                                     <i class="fa fa-times"></i></button>
                             </div>
 
@@ -262,16 +263,22 @@ if($r =='Cashier'){}else{
                         if($diff > 20){ $note="can't access in devices";}else{ }
                         ?>
                         <h1>Device ID:<?php echo $d_id; ?></h1>
-                        <h3>Connection:<small  class="label bg-blue">WiFi</small></h3>
-                        <h3>Memory:<small  class="label bg-yellow"><?php echo $memory; ?>/5000</small></h3>
-                        <h3>Note:<small  class="label bg-red"><?php echo $note; ?></small></h3>
+                        <h3>Connection:<small class="label bg-blue">WiFi</small></h3>
+                        <h3>Memory:<small class="label bg-yellow"><?php echo $memory; ?>/5000</small></h3>
+                        <h3>Note:<small class="label bg-red"><?php echo $note; ?></small></h3>
 
-                        
-                        
-                        <div class="box-footer clearfix">
-                        <button type="button" class="btn  btn-block btn-success ">  <i class="glyphicon glyphicon-lock"></i> <br> Door Unlock</button>
 
-                        <h4 class="pull-right">Version:<?php echo $version; ?></h4>
+                        <a onclick="return confirm('We are ready to restart your device')" href="device_restart.php" class="btn btn-app">
+                                <i class="fa fa-repeat"></i> Restart
+                        </a>
+
+                        <div class="box-footer clearfix"> <a
+                                onclick="return confirm('Are you sure about this Unlock ?')" href="door_unlock.php">
+                                <button type="button" class="btn  btn-block btn-success "> <i
+                                        class="glyphicon glyphicon-lock"></i> <br> Door Unlock</button>
+                            </a>
+                            
+                            <h4 class="pull-right">Version:<?php echo $version; ?></h4>
                         </div>
                     </div>
 

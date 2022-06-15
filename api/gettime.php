@@ -42,18 +42,21 @@ $h=date("H");
 $i=date("i");
 $s=date("s");
 
-
+$action="";
 $finger_id=0;
 $device_s_id =0;
 $time=date("ymdHis");
-$result = $db->prepare("SELECT id,comment FROM device WHERE device_id='$did' ");
+$result = $db->prepare("SELECT id,comment,lock_action, restart FROM device WHERE device_id='$did' ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){
 		    $device_s_id=$row['id'];
 			$comment=$row['comment'];
+			$lock_action=$row['lock_action'];
+			$restart=$row['restart'];
 		}
-
+		if($lock_action=="2"){	$action="unlock";}
+		if($restart=="2"){	$action="restart";}
 		if($comment == "TIMEOUT"){   
 			$sql = "UPDATE finger 
 				SET action=?
@@ -63,9 +66,9 @@ $result = $db->prepare("SELECT id,comment FROM device WHERE device_id='$did' ");
 		}
 
 		if($device_s_id > 0){
-		$sql = "UPDATE device SET time=? , memory=? , comment=? , version=? WHERE id=?";
+		$sql = "UPDATE device SET time=? , memory=? , comment=? , version=? , lock_action=? , restart=? WHERE id=?";
         $q = $db->prepare($sql);
-        $q->execute(array($time,$memory,$data,$version,$device_s_id));
+        $q->execute(array($time,$memory,$data,$version,"1","1",$device_s_id));
 		}else{ 
 		$sql = "INSERT INTO device (device_id,time) VALUES (?,?)";
 		$q = $db->prepare($sql);
@@ -103,7 +106,7 @@ $d=date("d");
 $h=date("H");
 $i=date("i");
 $s=date("s");
-if($memory > 0){$action="delete";}else{$action="";}
+if($memory > 0){$action="delete";}
 $response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s, "update"=>$update,"action"=>"$action");
 	$json_response = json_encode($response);
 	echo $json_response;
