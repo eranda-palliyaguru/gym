@@ -181,7 +181,7 @@ if($r =='Cashier'){}else{
                             $result->execute();
                             for($i=0; $row = $result->fetch(); $i++){
                                 $device_time=$row['time'];
-                                $time=date('ymHis');
+                                $time=date('ymdHis');
                                 $diff=$time-$device_time;
                                 if($diff > 20){ echo "<a>Offline</a>";}else{ echo "Online";}
                             }
@@ -238,16 +238,36 @@ if($r =='Cashier'){}else{
 
                     <div class="box box-info">
                         <div class="box-header">
-                            <i class="fa fa-envelope"></i>
-                            <h3 class="box-title">Quick Email</h3>
-
+                            <i class="fa fa-tablet"></i>
+                            <h3 class="box-title">Fingerprint Device </h3>
                             <div class="pull-right box-tools">
-                                <button type="button" class="btn btn-info btn-sm" data-widget="remove"
-                                    data-toggle="tooltip" title="Remove">
+                            <?php if($diff > 20){?><small   class="label bg-red">Offline</small>
+                                 <?php }else{ ?><small   class="label bg-green">Online</small> <?php } ?>    
+                    <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
                                     <i class="fa fa-times"></i></button>
                             </div>
 
                         </div>
+
+                        <?php 
+                        $result = $db->prepare("SELECT * FROM device  LIMIT 1");
+                        $result->bindParam(':userid', $res);
+                        $result->execute();
+                        for($i=0; $row = $result->fetch(); $i++){
+                            $d_id=$row['device_id'];
+                            $version=$row['version'];
+                            $memory=$row['memory'];
+                            $note=$row['comment'];
+                        }
+                        if($diff > 20){ $note="can't access in devices";}else{ }
+                        ?>
+                        <h1>Device ID:<?php echo $d_id; ?></h1>
+                        <h3>Connection:<small  class="label bg-blue">WiFi</small></h3>
+                        <h3>Memory:<small  class="label bg-yellow"><?php echo $memory; ?>/5000</small></h3>
+                        <h3>Note:<small  class="label bg-red"><?php echo $note; ?></small></h3>
+
+                        <h4 class="pull-right">Version:<?php echo $version; ?></h4>
+                        <button type="button" class="btn  btn-block btn-success ">  <i class="glyphicon glyphicon-lock"></i> <br> Door Unlock</button>
 
                         <div class="box-footer clearfix">
                             <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
