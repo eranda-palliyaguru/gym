@@ -45,7 +45,7 @@ $s=date("s");
 
 $finger_id=0;
 $device_s_id =0;
-$time=date("ymHis");
+$time=date("ymdHis");
 $result = $db->prepare("SELECT id,comment FROM device WHERE device_id='$did' ");
 		$result->bindParam(':userid', $res);
 		$result->execute();
