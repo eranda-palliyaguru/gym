@@ -266,12 +266,12 @@ if($r =='Cashier'){}else{
                         <h3>Memory:<small  class="label bg-yellow"><?php echo $memory; ?>/5000</small></h3>
                         <h3>Note:<small  class="label bg-red"><?php echo $note; ?></small></h3>
 
-                        <h4 class="pull-right">Version:<?php echo $version; ?></h4>
+                        
+                        
+                        <div class="box-footer clearfix">
                         <button type="button" class="btn  btn-block btn-success ">  <i class="glyphicon glyphicon-lock"></i> <br> Door Unlock</button>
 
-                        <div class="box-footer clearfix">
-                            <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
-                                <i class="fa fa-arrow-circle-right"></i></button>
+                        <h4 class="pull-right">Version:<?php echo $version; ?></h4>
                         </div>
                     </div>
 
