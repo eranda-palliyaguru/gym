@@ -22,7 +22,7 @@ if($mode=="finger_delete"){
 	$q->execute(array("0",$d_finger));
 }
 
-if($version=="1.0.5"){
+if($version=="1.1.0"){
 	$update="no";
 }
 
