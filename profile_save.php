@@ -9,7 +9,7 @@ $d = $_POST['contact'];
 $e = $_POST['join'];
 $address = $_POST['address'];
 $id= $_POST['id'];
-
+$membar=$_POST['type'];
 
 
 
@@ -43,11 +43,9 @@ $q = $db->prepare($sql);
 $q->execute(array($d,$id));
 
 
-$sql = "UPDATE customer 
-        SET join_date=?
-		WHERE customer_id=?";
+$sql = "UPDATE customer SET join_date=? , membership=? WHERE customer_id=?";
 $q = $db->prepare($sql);
-$q->execute(array($e,$id));
+$q->execute(array($e,$membar,$id));
 
 
 

@@ -98,6 +98,11 @@ include_once("sidebar.php");
 		$result->bindParam(':userid', $res);
 		$result->execute();
 		for($i=0; $row = $result->fetch(); $i++){	
+$type_id=$row['membership'];
+            $resul = $db->prepare("SELECT * FROM cat WHERE id='$type_id' ");
+            $resul->bindParam(':userid', $res);
+            $resul->execute();
+            for($i=0; $row1 = $resul->fetch(); $i++){ $type=$row1['name']; }
 	?>
 
 
@@ -120,6 +125,9 @@ include_once("sidebar.php");
                                 </li>
                                 <li class="list-group-item">
                                     <b>Expire Date:</b> <i><?php echo $row['v_date'];?></i>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Membership:</b> <i><?php echo $type;?></i>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Finger:</b> <i>
@@ -252,6 +260,24 @@ include_once("sidebar.php");
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="v_date"
                                                 value="<?php echo $ex; ?>" id="inputName" placeholder="Expire Date">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Membership</label>
+
+                                        <div class="col-sm-10">
+                                            <select type="text" class="form-control" name="type"  value="<?php echo $ex; ?>" id="inputName" placeholder="type">
+                                            <option value="<?php echo $type_id; ?>"><?php echo $type; ?></option>
+                                            <?php 
+                                            $result1 = $db->prepare("SELECT * FROM cat ");
+                                            $result1->bindParam(':userid', $res);
+                                            $result1->execute();
+                                            for($i=0; $row = $result1->fetch(); $i++){
+                                                echo "<option value='".$row['id']."' >".$row['name']."</option>";                                  
+                                            }
+                                            ?>
+                                            </select>
                                         </div>
                                     </div>
 
