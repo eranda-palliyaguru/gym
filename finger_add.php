@@ -5,7 +5,7 @@ date_default_timezone_set("Asia/Colombo");
 
 $date=date('Y-m-d');
 $user_id=$_GET['id'];
-$old_id=-0;
+$old_id=-1;
 $result1 = $db->prepare("SELECT * FROM finger WHERE user_id='$user_id' AND action='0' ");
 $result1->bindParam(':userid', $date);
 $result1->execute();
