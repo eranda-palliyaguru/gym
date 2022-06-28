@@ -106,7 +106,7 @@ $d=date("d");
 $h=date("H");
 $i=date("i");
 $s=date("s");
-if($memory > 0){$action="";}
+if($memory > 0){$action="delete";}
 $response = array("y"=>$y, "M"=>$m, "d"=>$d, "h"=>$h, "m"=>$i, "s"=>$s, "update"=>$update,"action"=>"$action");
 	$json_response = json_encode($response);
 	echo $json_response;
