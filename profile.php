@@ -138,11 +138,13 @@ $type_id=$row['membership'];
                 for($i=0; $row1 = $result1->fetch(); $i++){  $finger=$row1['id'];?><a
                                             class="btn btn-info btn-md delbutton" href="#"><i
                                                 class="fa fa-500px"></i></a>
+                                                <a onclick="return confirm('Are you sure about this delete ?')"  href="finger_dll.php?id=<?php echo $row1['id'];?>&from=profile&u_id=<?php echo $_GET['id'];?>" >
+					  <button class="btn btn-danger"><i   class="glyphicon glyphicon-trash"></i></button></a>
                                         <?php } ?></td>
                                         <td></td>
                                         <?php if(!$finger){ ?>
                                         <a href="finger_add.php?id=<?php echo $row['customer_id'];?>">
-                                            <button class="btn btn-danger">ADD Finger</button></a>
+                                            <button class="btn btn-danger">ADD Finger</button></a> 
                                         <?php } ?>
                                     </i>
                                 </li>

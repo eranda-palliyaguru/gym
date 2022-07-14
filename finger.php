@@ -121,7 +121,7 @@ return false;
 					  <button class="btn btn-info"><i   class="glyphicon glyphicon-user"></i></button></a>
 					  
                       <?php if($user_level==1){?>
-					  <a onclick="return confirm('Are you sure about this delete ?')"  href="finger_dll.php?id=<?php echo $row['id'];?>" >
+					  <a onclick="return confirm('Are you sure about this delete ?')"  href="finger_dll.php?id=<?php echo $row['id'];?>&from=finger" >
 					  <button class="btn btn-danger"><i   class="glyphicon glyphicon-trash"></i></button></a>
                       <?php }?>
 					</td>
