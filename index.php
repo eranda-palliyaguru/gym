@@ -68,35 +68,27 @@ include_once("sidebar.php");
  date_default_timezone_set("Asia/Colombo");
  $cash=$_SESSION['SESS_FIRST_NAME'];
                   $date =  date("Y-m-d");					
+                  $visit_count_m=0;
+                  $d1=date('Y-m-').'01';
+                  $d2=date('Y-m-').'31';
+                  $result = $db->prepare("SELECT id FROM attends WHERE  date BETWEEN '$d1' AND '$d2'  GROUP BY user_id; ");
+                  $result->bindParam(':userid', $date);
+                  $result->execute();
+                  for($i=0; $row = $result->fetch(); $i++){
+                          $visit_count_m+=1;
+                        }
 
-			
 
-				
+
+
+
 				  $profit=0;
-
-				
-
-				
-
-
-
-
-
-
-
 $result = $db->prepare("SELECT sum(amount) FROM payment WHERE    date='$date'  ");
 					$result->bindParam(':userid', $date);
                 $result->execute();
                 for($i=0; $row = $result->fetch(); $i++){
-
-				  
-
 				  $amount=$row['sum(amount)'];
-
-				}		
-				
-
-
+				}
 
 		$month1=date("Y-m-01");
 		$month2=date("Y-m-31");		
@@ -108,64 +100,23 @@ $result = $db->prepare("SELECT sum(amount) FROM payment WHERE    date='$date'  "
 if($r =='Cashier'){}else{
 	?>
                 <div class="col-lg-3 col-xs-6">
-
                     <!-- small box -->
-
                     <div class="small-box bg-aqua">
-
                         <div class="inner">
-
                             <h3>Rs.<?php echo $amount; ?></h3>
-
-
-
                             <p>Total Sales</p>
-
                         </div>
-
                         <div class="icon">
-
                             <i class="ion ion-pie-graph"></i>
-
                         </div>
 
                         <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-
                     </div>
-
                 </div>
 
                 <!-- ./col -->
 
-                <div class="col-lg-3 col-xs-6">
 
-                    <!-- small box -->
-
-                    <div class="small-box bg-green">
-
-                        <div class="inner">
-
-                            <h3>Rs.<?php // echo $ex; ?></sup></h3>
-
-
-
-                            <p>Expenses Total </p>
-
-                        </div>
-
-                        <div class="icon">
-
-                            <i class="ion ion-stats-bars"></i>
-
-                        </div>
-
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-
-                    </div>
-
-                </div>
-
-                <!-- ./col -->
 
                 <div class="col-lg-3 col-xs-6">
 
@@ -205,6 +156,36 @@ if($r =='Cashier'){}else{
 
                 </div>
 
+                <div class="col-lg-3 col-xs-6">
+
+                    <!-- small box -->
+
+                    <div class="small-box bg-green">
+
+                        <div class="inner">
+
+                            <h3><?php  echo $visit_count_m; ?></sup></h3>
+
+
+
+                            <p>Total Visitors (Month) </p>
+
+                        </div>
+
+                        <div class="icon">
+
+                            <i class="ion ion-stats-bars"></i>
+
+                        </div>
+
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                    </div>
+
+                </div>
+
+                <!-- ./col -->
+
                 <!-- ./col -->
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
@@ -214,10 +195,10 @@ if($r =='Cashier'){}else{
 
 
 
-                            <p>Total Visitors</p>
+                            <p>Total Visitors (Day)</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-hammer"></i>
+                            <i class="ion ion-stats-bars"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
@@ -268,8 +249,9 @@ if($r =='Cashier'){}else{
                         <h3>Note:<small class="label bg-red"><?php echo $note; ?></small></h3>
 
 
-                        <a onclick="return confirm('We are ready to restart your device')" href="device_restart.php" class="btn btn-app">
-                                <i class="fa fa-repeat"></i> Restart
+                        <a onclick="return confirm('We are ready to restart your device')" href="device_restart.php"
+                            class="btn btn-app">
+                            <i class="fa fa-repeat"></i> Restart
                         </a>
 
                         <div class="box-footer clearfix"> <a
@@ -277,7 +259,7 @@ if($r =='Cashier'){}else{
                                 <button type="button" class="btn  btn-block btn-success "> <i
                                         class="glyphicon glyphicon-lock"></i> <br> Door Unlock</button>
                             </a>
-                            
+
                             <h4 class="pull-right">Version:<?php echo $version; ?></h4>
                         </div>
                     </div>
@@ -290,8 +272,6 @@ if($r =='Cashier'){}else{
 
 
                 <section class="col-lg-5 connectedSortable">
-
-
 
                     <div class="box box-info">
                         <div class="box-header">
@@ -317,8 +297,6 @@ if($r =='Cashier'){}else{
 		for($i=0; $row = $result->fetch(); $i++){
 		$type=$row['membership'];
     ?>
-
-
                                     <li class="item">
                                         <div class="product-img">
                                             <img src="pic/ned.jpg" alt="Product Image">
@@ -358,26 +336,6 @@ if($r =='Cashier'){}else{
                     <!-- Main content -->
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </section>
 
 
